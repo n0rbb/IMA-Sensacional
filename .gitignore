@@ -1,0 +1,16 @@
+# Ignore build and output directories
+sensa-v0.1/build/
+/out/
+/dist/
+
+# Ignore temporary or IDE-specific directories
+sensa-v0.1/.vscode/
+sensa-v0.1/.devcontainer/
+/.idea/
+/*.swp
+
+# Ignore dependency directories
+/node_modules/
+/venv/
+/deps/
+
