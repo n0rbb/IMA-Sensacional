@@ -17,7 +17,7 @@ extern "C" {
 #include "rom/ets_sys.h"
 #include "bme280.h"
 //#include "sensirion_config.h"
-#include "sgp40.h"
+#include "sgp40_i2c.h"
 
 
 #define I2C_MASTER_SCL_IO                  2  //2 Para el thing plus, 22 para firebeetle
@@ -34,13 +34,17 @@ extern "C" {
 
 
 #define BME280_ADDR                 BME280_I2C_ADDR_SEC
-#define SGP40_ADDR                  SGP40_I2C_ADDRESS
+#define SGP40_ADDR                  0x59
 
 uint16_t BSP_GetVersion(void);
 
 void I2C_init(void);
 void I2C_deinit(void);
 void I2C_scan(void);
+
+void BSP_UART_Init();
+void BSP_UART_Send(char* command);
+int8_t BSP_UART_Read(uint8_t* buff_data);
 
 void BSP_LED_Init(uint8_t pin);
 void BSP_LED_Write(uint8_t pin, uint8_t value);

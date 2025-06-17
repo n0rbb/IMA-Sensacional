@@ -146,12 +146,13 @@ void BSP_UART_Send(char* command){
     uart_write_bytes(UART_NUM, (const char*)command, strlen(command));
 }
 
-uint8_t BSP_UART_Read(){
+int8_t BSP_UART_Read(uint8_t* buff_data){
     int buff_len;
+    int max_len = sizeof(&buff_data);
     uart_get_buffered_data_len(UART_NUM, (size_t*)&buff_len);
-    uint8_t buff_data[buff_len];
-    buff_len = uart_read_bytes(UART_NUM, buff_data, buff_len, 100);
-    return buff_data;
+    if (buff_len > max_len) buff_len = max_len;
+    //uint8_t buff_data[buff_len];
+    return uart_read_bytes(UART_NUM, buff_data, buff_len, 100);
 }
 
 
