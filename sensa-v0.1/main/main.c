@@ -12,7 +12,7 @@
 static const char *TAG = "ESP32";
 extern uint8_t MQTT_CONNECTED;
 
-#define LED_PIN 13
+
 extern uint8_t LED_FLAG, TEM_FLAG, PRE_FLAG, HUM_FLAG, COV_FLAG;
 
 void app_main(void)
@@ -27,14 +27,14 @@ void app_main(void)
     I2C_scan();
 
     ESP_LOGI(TAG, "IIC initialised successfully");
-    BSP_LED_Init(13);
+    BSP_LED_Init(LED_PIN);
     BSP_BME280_Init();
     BSP_SGP40_Init();
     
     mqtt_app_start();
     
     for(;;){
-        BSP_LED_Write(13, LED_FLAG);
+        BSP_LED_Write(LED_PIN, LED_FLAG);
         if (TEM_FLAG) BSP_BME280_Get_Temperature(&temperature);
         if (PRE_FLAG) BSP_BME280_Get_Pressure(&pressure);
         if (HUM_FLAG) BSP_BME280_Get_Humidity(&humidity);
@@ -50,7 +50,6 @@ void app_main(void)
             if (HUM_FLAG) mqtt_publish("Humedad", &humidity, TYPE_DOUBLE);
             if (COV_FLAG) mqtt_publish("COVs", &tvoc, TYPE_UINT16); 
         }
-
         vTaskDelay(1000/portTICK_PERIOD_MS);
     }
 

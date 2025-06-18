@@ -108,7 +108,7 @@ void I2C_init(void)
         .scl_io_num = I2C_MASTER_SCL_IO,
         .clk_source = I2C_CLK_SRC_DEFAULT,
         .glitch_ignore_cnt = 7,
-        .flags.enable_internal_pullup = true,
+        .flags.enable_internal_pullup = false, //Lo cambio porque he metido pullups externos ya.
     };
     ESP_ERROR_CHECK(i2c_new_master_bus(&bus_config, &I2C_handle));
 }
@@ -120,6 +120,7 @@ void I2C_deinit(void)
 
 void I2C_scan(void)
 {
+    ESP_LOGI(TAG_I2C, "Run IIC bus dev scan...");
     for (uint16_t scan_addr = 1; scan_addr < 127; scan_addr++) {  
         if (i2c_master_probe(I2C_handle, scan_addr, I2C_MASTER_TIMEOUT_MS / portTICK_PERIOD_MS) == ESP_OK){
             ESP_LOGI(TAG_I2C, "Found device at 0x%X\n", scan_addr);

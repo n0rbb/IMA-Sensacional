@@ -20,9 +20,8 @@ extern "C" {
 #include "sgp40_i2c.h"
 
 
-#define I2C_MASTER_SCL_IO                  2  //2 Para el thing plus, 22 para firebeetle
-#define I2C_MASTER_SDA_IO                  1  //1 Para el thing plus, 21 para el firebeetle
-//ARREGLAR ESTA VAINA PARA QUE COMPILE PARA AMBAS PLACAS SIN NECESIDAD DE CAMBIAR NADA
+#define I2C_MASTER_SCL_IO                  2  
+#define I2C_MASTER_SDA_IO                  1  
 
 #define UART_NUM                    UART_NUM_1
     
@@ -33,8 +32,10 @@ extern "C" {
 #define I2C_MASTER_TIMEOUT_MS       1000
 
 
-#define BME280_ADDR                 BME280_I2C_ADDR_SEC
+#define BME280_ADDR                 BME280_I2C_ADDR_PRIM
 #define SGP40_ADDR                  0x59
+
+#define LED_PIN 9
 
 uint16_t BSP_GetVersion(void);
 
